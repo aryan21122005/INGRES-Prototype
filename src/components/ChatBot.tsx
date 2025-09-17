@@ -44,6 +44,21 @@ interface LocationData {
   }>;
 }
 
+// <<< START MODIFICATION 1: Create a map for location-specific URL parameters >>>
+// This map stores the unique identifiers needed to build the correct INGRES URL for each city.
+const locationUrlParams = new Map([
+  ['Pune', {
+    locuuid: '471dff0a-9b41-46f2-890d-179b2408ca4d',
+    stateuuid: 'e7b3f02d-2497-4bcd-9e20-baa4b621822b'
+  }],
+  ['Bhopal', {
+    locuuid: '0f913787-1edc-4710-a62e-83db36a21983', // Example UUID for Bhopal
+    stateuuid: 'f38e6de8-396e-47b4-af18-32c333eddccc'  // Example UUID for Madhya Pradesh
+  }],
+  // Add other locations here with their respective UUIDs
+]);
+// <<< END MODIFICATION 1 >>>
+
 const ChatBot = () => {
   const { focusOnLocation } = useMap();
   const [isOpen, setIsOpen] = useState(false);
@@ -65,7 +80,7 @@ const ChatBot = () => {
   // Get comprehensive groundwater data from service
   const getAllLocationsData = () => {
     const locations: { [key: string]: LocationData } = {};
-    
+
     // Get major cities from original service for detailed data
     GroundwaterDataService.getAllLocations().forEach(locationName => {
       const assessment = GroundwaterDataService.getLocationData(locationName);
@@ -96,7 +111,7 @@ const ChatBot = () => {
         };
       }
     });
-    
+
     return locations;
   };
 
@@ -139,6 +154,7 @@ const ChatBot = () => {
     ]
   };
 
+  // <<< START MODIFICATION 2: Add Bhopal to sample queries for easy testing >>>
   const sampleQueries = [
     "Show data for Bhopal",
     "View Mumbai groundwater data",
@@ -146,6 +162,7 @@ const ChatBot = () => {
     "Pune extraction data",
     "Show data for all blocks of India"
   ];
+  // <<< END MODIFICATION 2 >>>
 
   const handleSendMessage = (content: string) => {
     if (!content.trim()) return;
@@ -312,28 +329,37 @@ const ChatBot = () => {
     focusOnLocation(location, coordinates);
   };
 
+  // <<< START MODIFICATION 3: Make the openIngresMap function dynamic >>>
   const openIngresMap = (location: string) => {
-    // Generate INGRES website URL for the specific location using the provided pattern
+    // Look up the specific UUIDs for the given location
+    const params = locationUrlParams.get(location);
+    if (!params) {
+      console.error(`URL parameters not found for location: ${location}`);
+      // Optionally, open a default map or show an error
+      window.open("https://ingres.iith.ac.in/gecdataonline/gis/INDIA", '_blank');
+      return;
+    }
+
     const baseUrl = "https://ingres.iith.ac.in/gecdataonline/gis/INDIA";
     
-    // Create URL parameters following the exact INGRES pattern
     const urlParams = [
       `locname=${location.toUpperCase()}`,
       `loctype=DISTRICT`,
       `view=ADMIN`,
-      `locuuid=471dff0a-9b41-46f2-890d-179b2408ca4d`,
+      `locuuid=${params.locuuid}`, // Use the dynamic locuuid
       `year=2024-2025`,
       `computationType=normal`,
       `component=recharge`,
       `period=annual`,
       `category=safe`,
       `mapOnClickParams=true`,
-      `stateuuid=e7b3f02d-2497-4bcd-9e20-baa4b621822b`
+      `stateuuid=${params.stateuuid}` // Use the dynamic stateuuid
     ];
     
     const fullUrl = `${baseUrl};${urlParams.join(';')}`;
     window.open(fullUrl, '_blank');
   };
+  // <<< END MODIFICATION 3 >>>
 
   if (!isOpen) {
     return (
@@ -498,7 +524,7 @@ const ChatBot = () => {
                     {message.hasCharts && message.location && message.location !== 'India' && locationsData[message.location] && (
                       <div className="mt-4 space-y-4">
                         {(() => {
-                          const locationData = locationsData[message.location];
+                          const locationData = locationsData[message.location!];
                           return (
                             <>
                               {/* Location Recharge vs Extraction Chart */}
