@@ -1,73 +1,46 @@
-# Welcome to your Lovable project
+Project Overview
+Welcome to the INGRES AquaBot Buddy project made by BYTE ME! This project aims to provide an intelligent chatbot assistant focused on groundwater management and related inquiries. Our goal is to make information and assistance regarding groundwater accessible and intuitive through an AI-powered conversational interface.
 
-## Project info
+This repository contains the source code for the chatbot and its associated frontend.
 
-**URL**: https://lovable.dev/projects/7da919a9-9607-4b76-a033-4a62df6beb57
+Prototype Link
+Access the live prototype here:
 
-## How can I edit this code?
+https://ingres-prototype.vercel.app/
 
-There are several ways of editing your application.
 
-**Use Lovable**
+How to Get Started (Local Development)
+If you want to set up and run this project on your local machine for development or testing, follow these steps:
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/7da919a9-9607-4b76-a033-4a62df6beb57) and start prompting.
+Prerequisites
+Ensure you have the following installed on your system:
 
-Changes made via Lovable will be committed automatically to this repo.
+Node.js & npm: We recommend using nvm (Node Version Manager) for easy installation and management of Node.js versions.
 
-**Use your preferred IDE**
+Install nvm
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+Once nvm is installed, you can install Node.js (e.g., nvm install 18 or nvm install stable) and use it (nvm use 18).
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
+Installation and Running
+Clone the repository:
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+Bash
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+git clone https://github.com/aryan21122005/INGRES-Prototype.git
+Navigate to the project directory:
 
-# Step 3: Install the necessary dependencies.
-npm i
+Bash
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+cd INGRES-Prototype
+Install project dependencies:
+
+Bash
+
+npm install
+Start the development server:
+
+Bash
+
 npm run dev
 ```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/7da919a9-9607-4b76-a033-4a62df6beb57) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+This command will start the development server, usually accessible at http://localhost:5173 (or another port if 5173 is in use). It includes hot-reloading for an instant preview of your changes.
